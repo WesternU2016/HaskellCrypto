@@ -1,22 +1,22 @@
     // Construct a machine out of parts
     mkEnigma : {n} (Plugboard, [n]Rotor, Reflector, [n]Char) -> Enigma n
     mkEnigma (pboard, rs, refl, startingPositions) =
-    { plugboard = pboard
-    , rotors = [ r <<< (s - 'A')
-    | r <- rs
-    | s <- startingPositions
-    ]
-    , reflector = refl
+        { plugboard = pboard
+        , rotors = [ r <<< (s - 'A')
+                   | r <- rs
+                   | s <- startingPositions
+                   ]
+        , reflector = refl
     }
 
     // Encryption/Decryption
-    enigma : {n, m} (fin n, fin m) => (Enigma n, String m) -> String m
+    enigma : {n, m} (fin n, fin m) => (Enigma n, String m) -> String 
     enigma (m, pt) = tail [ c | (_, c) <- rcs ]
-    where rcs = [(m.rotors, '*')] #
-    [ enigmaLoop (m.plugboard, r, m.reflector, c)
-    | c <- pt
-    | (r, _) <- rcs
-    ]
+      where rcs = [(m.rotors, '*')] #
+                  [ enigmaLoop (m.plugboard, r, m.reflector, c)
+                  | c <- pt
+                  | (r, _) <- rcs
+                  ]
 
     // Decryption is the same as encryption:
     © 2010–2016, Galois, Inc.
@@ -50,8 +50,8 @@
 
     all: {a, n} (fin n) => (a->Bit) -> [n]a -> Bit
     all fn xs = folds ! 0 where
-    folds = [True] # [ fn x && p | x <- xs
-    | p <- folds]
+        folds = [True] # [ fn x && p | x <- xs
+                                     | p <- folds]
     checkReflectorFwdBwd : Reflector -> Bit
     checkReflectorFwdBwd refl = all check ['A' .. 'Z']
-    where check c = substFwd (refl, c) == substBwd (refl, c)
+         where check c = substFwd (refl, c) == substBwd (refl, c)
