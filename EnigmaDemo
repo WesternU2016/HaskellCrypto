@@ -111,7 +111,6 @@
                   ]
 
     // Decryption is the same as encryption:
-    //© 2010–2016, Galois, Inc.
     // dEnigma : {n, m} (fin n, fin m) => (Enigma n, String m) -> String m
     dEnigma = enigma
 
