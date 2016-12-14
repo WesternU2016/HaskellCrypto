@@ -1,0 +1,67 @@
+module Project where
+
+    multiple :[8]
+    multiple = 2
+
+    adder : [8]
+    adder = 5
+
+    modder : [8]
+    modder = 127
+
+    encodeInt i = (((multiple * i) + adder) % modder)
+
+    decodeInt i = ((i+modder-adder)/multiple)
+
+    encodeChar c = encodeInt c
+
+    decodeChar i = decodeInt i
+
+    encode c = encodeInt (encodeChar c)
+
+    decode i = decodeChar (decodeInt i)
+
+    /*
+    tail : {a b} [a+1]b -> [a]b
+    tail x = drop (1, x)
+
+    drop (n, _) : (fin n, n >= 0) => [n+a]b -> [a]b
+    */
+
+     
+            
+
+    /*
+    encodeString1 [] = []
+    encodeString2 [c] = encode c # []
+    encodeString3 (c:cs) = encode c # encodeString3 cs
+
+    decodeString1 [] = []
+    decodeString2 [n] = decode n # []
+    decodeString3 (n:ns) = decode n # decodeString3 ns
+    */
+    /*
+    maxSeq xs = ys!0
+        where ys = [0] # [ max x y | x <-xs
+                                   | y <- ys 
+                         ]
+    
+    substKey : String 26
+    substKey = "FJHWOTYRXMKBPIAZEVNULSGDCQ"
+    */
+
+    /*
+    encodeString c = 
+        if (c==[]) then []
+            |   (c==c # []) then encode (c@0)
+            |   (c==c # ) then (encode (c@0)) # (encodeString (tail c))
+            else error "This Sucks"
+    */
+
+    sqDiff1 (x,y) = x^^2 - y^^2
+    sqDiff2 (x,y) = (x-y)*(x+y)
+
+    sqDiffsCorrect : ([8],[8]) -> Bit
+    property sqDiffsCorrect (x,y)=sqDiff1(x,y)==sqDiff2(x,y)
+
+    
